@@ -1,5 +1,4 @@
-//10226626249299994
-
+//funcion que retorna html de la info de superHero
 const supeHeroCardHTML = (data) => {
   return `
     <div class="card mb-3 p-1" style="max-width: 100%;">
@@ -38,6 +37,7 @@ const supeHeroCardHTML = (data) => {
                     <li class="list-group-item">Alianzas: ${data.biography.aliases.join(
                       ', '
                     )}</li>
+                    <li class="list-group-item">ID: ${data.id}</li>
                 </ul>
             </div>
             </div>
@@ -46,16 +46,67 @@ const supeHeroCardHTML = (data) => {
     `;
 };
 
+//funcion que retorna grafico
+const graficoSuperHero = (data) => {
+  let chart = new CanvasJS.Chart('chartContainer', {
+    animationEnabled: true,
+    title: {
+      text: `Estadisticas ${data.name}`,
+    },
+    data: [
+      {
+        type: 'pie',
+        startAngle: 240,
+        yValueFormatString: '##0',
+        indexLabel: '{label} {y}',
+        dataPoints: [
+          { y: data.powerstats.combat, label: 'Combat' },
+          { y: data.powerstats.intelligence, label: 'Intelligence' },
+          { y: data.powerstats.power, label: 'Power' },
+          { y: data.powerstats.speed, label: 'Speed' },
+          { y: data.powerstats.strength, label: 'Strength' },
+        ],
+      },
+    ],
+  });
+  return chart.render();
+};
+
+// Escucha evento submit
 $('.form').on('submit', function (event) {
   event.preventDefault();
-  const superHeroNumber = $('#superHeroNumber').val();
+  const superHeroNumber =
+    $('#superHeroNumber').val() || Math.floor(Math.random() * 781);
 
   $.get(
     `https://superheroapi.com/api.php/10226626249299994/${superHeroNumber}`,
     function (data) {
-      console.log(data);
-
+      //Render HTML
       $('.superHeroInfo').html(supeHeroCardHTML(data));
+
+      //Render Grafico
+      graficoSuperHero(data);
+
+      console.log(data);
     }
   );
+
+  //Resetea input form
+  $('.form')[0].reset();
+});
+
+// Obtiene 50 superHeros Random
+$('.btn-modal').on('click', function (event) {
+  $('.superHeroList').html('');
+  for (let cont = 1; cont < 50; cont++) {
+    const id = Math.floor(Math.random() * 781);
+    $.get(
+      `https://superheroapi.com/api.php/10226626249299994/${id}/biography`,
+      function (data) {
+        $('.superHeroList').append(`
+        <div class="col-md-4"><span class="fw-bold">${data.id}:</span> ${data.name}</div>
+        `);
+      }
+    );
+  }
 });

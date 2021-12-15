@@ -40,18 +40,49 @@
         <div id="numberHelp" class="form-text">Ingresa un numero de 1 al 781</div>
       </div>
       <button type="submit" class="btn btn-primary">Buscar SuperHero</button>
+      <button type="submit" class="btn btn-primary" id="Random" data-="true">Buscar SuperHero Random</button>
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary btn-modal" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        Obtener lista random de 50 SuperHeros
+      </button>
 
-      <section class="superHero-data row mt-5">
-
-        <div class="col-6 superHeroInfo">
-
-        </div>
-      </section>
     </form>
+    <section class="superHero-data row mt-5">
+      <div class="col-12 col-md-6 superHeroInfo"></div>
+      <div class="col-12 col-md-6" id="chartContainer"></div>
+    </section>
 
 
 
 
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+      aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-fullscreen">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Random SuperHeros</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+              <div class="row superHeroList">
+
+
+              </div>
+
+
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
 
 
 
@@ -63,6 +94,9 @@
   </div>
 
 
+  <!-- CanvaJs -->
+
+  <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
   <!-- jQuery -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"
